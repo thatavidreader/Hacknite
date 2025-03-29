@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Welfare Schemes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            background-color: #008000;
+            color: white;
+            padding: 15px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Indian Government Welfare Schemes for Farmers</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Scheme Name</th>
+                    <th>More Info</th>
+                </tr>
+            </thead>
+            <tbody id="schemes-list">
+                <!-- Welfare programs will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch schemes from the API
+        fetch("http://127.0.0.1:5000/welfare-programs")
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById("schemes-list");
+            data.forEach(scheme => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${scheme.title}</td>
+                    <td><a href="${scheme.link}" target="_blank">View Details</a></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error("Error fetching schemes:", error));
+    </script>
+
+</body>
+</html>
